@@ -28,6 +28,6 @@ public class LogController {
     public List<HealthLog> getWeeklyLogs(@RequestParam String date) {
         LocalDate today = LocalDate.parse(date);
         System.out.println("getting weekly logs for" + date);
-        return logService.getWeeklyLogs(today);
+        return logService.getWeeklyLogs();
     }
 }

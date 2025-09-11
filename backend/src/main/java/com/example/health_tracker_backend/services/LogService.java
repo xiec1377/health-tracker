@@ -20,7 +20,8 @@ public class LogService {
         return logRepository.save(log);
     }
 
-    public List<HealthLog> getWeeklyLogs(LocalDate today) {
+    public List<HealthLog> getWeeklyLogs() {
+        LocalDate today = LocalDate.now();
         LocalDate weekAgo = today.minusDays(7);
         return logRepository.findLogsFromDate(weekAgo);
     }

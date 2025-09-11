@@ -25,6 +25,14 @@ function formatDateToMonthDay(dateStr) {
   return `${month} ${day}`
 }
 
+function getAverage(data) {
+  return data.reduce((a, b) => a + b, 0) / data.length
+}
+
+function getTotal(data) {
+  return data.reduce((a, b) => a + b, 0)
+}
+
 $(document).ready(function () {
   const today = new Date().toISOString().split('T')[0]
   $('#date').val(today)
@@ -75,6 +83,31 @@ $(document).ready(function () {
     $('#date').val(today)
   })
 
+  // UNCOMMENT OUT
+  const cachedRecommendation = localStorage.getItem('recommendation')
+
+  if (cachedRecommendation) {
+    console.log('Loaded recommendation from localStorage')
+    $('#recommendation').text(cachedRecommendation)
+  } else {
+    console.log('create another recommendation...')
+    $.ajax({
+      url: 'http://localhost:8080/api/health/recommendations',
+      type: 'GET',
+      contentType: 'application/json',
+      //   data: JSON.stringify(data),
+      success: function (response) {
+        // alert('Health data saved successfully!')
+        console.log('recommendation:', response)
+        $('#recommendation').text(response)
+        localStorage.setItem('recommendation', response)
+      },
+      error: function () {
+        alert('Failed to save recommendation.')
+      },
+    })
+  }
+
   // chart
   $.ajax({
     url: 'http://localhost:8080/api/health/logs/week',
@@ -83,6 +116,16 @@ $(document).ready(function () {
     data: { date: today },
     success: function (response) {
       console.log('weekly response:', response)
+      $('#total').text(
+        `Total steps this week: ${Math.round(
+          getTotal(response.map((log) => log.steps || 0)),
+        )}`,
+      )
+      $('#average').text(
+        `Average steps this week: ${Math.round(
+          getAverage(response.map((log) => log.steps || 0)),
+        )}`,
+      )
       // alert('Health data for week retrieved successfully!')
       response.sort((a, b) => new Date(a.date) - new Date(b.date))
       const labels = response.map((log) => formatDateToMonthDay(log.date))
@@ -156,8 +199,8 @@ $(document).ready(function () {
                 generateLabels: function (chart) {
                   return chart.data.datasets.map((ds, i) => ({
                     text: ds.label,
-                    // text: `${ds.label} ${ds.hidden ? '' : ''}`, 
-                    fillStyle: `${ds.backgroundColor} ${ds.hidden ? 'red' : ''}`, //ds.backgroundColor, //'transparent',
+                    // text: `${ds.label} ${ds.hidden ? '' : ''}`,
+                    fillStyle: ds.hidden ? 'transparent' : ds.backgroundColor, //ds.backgroundColor, //'transparent',
                     strokeStyle: 'transparent',
                     lineWidth: 1,
                     hidden: ds.hidden,
@@ -182,6 +225,26 @@ $(document).ready(function () {
                     ci.data.datasets[index].yAxisID === axisID
                 }
                 ci.update()
+                // const dataValues = selectedDataset.data
+                console.log('ci.data.datasets[index]:', ci.data.datasets[index])
+                if (ci.data.datasets[index].label != 'Mood') {
+                  $('#total').text(
+                    `Total ${
+                      ci.data.datasets[index].label
+                    } this week: ${Math.round(
+                      getTotal(ci.data.datasets[index].data),
+                    )}`,
+                  )
+                } else {
+                  $('#total').text('')
+                }
+                $('#average').text(
+                  `Average ${
+                    ci.data.datasets[index].label
+                  } this week: ${Math.round(
+                    getAverage(ci.data.datasets[index].data),
+                  )}`,
+                )
               },
             },
           },
