@@ -1,4 +1,4 @@
-package com.example.health_tracker_backend.controller;
+package com.example.health_tracker_backend.controllers;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

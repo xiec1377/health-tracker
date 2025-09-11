@@ -1,33 +1,85 @@
 body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: rgb(236, 236, 236);
 }
+
+h2 {
+  text-align: center;
+  font-size: 20px;
+  margin: 0;
+}
+
+button {
+  border-radius: 4px;
+  /* border: 1px solid #ccc; */
+  border: none;
+  height: 32px;
+  min-width: 100px;
+  background-color: rgb(36, 149, 21);
+  color: white;
+}
+
+button:hover {
+  background-color: rgb(55, 21, 149);
+  color: white;
+  border: 1px solid rgb(55, 21, 149);
+  cursor: pointer;
+}
+
+button.disabled {
+  background-color: white;
+  color: rgb(36, 149, 21);
+  border: 1px solid rgb(36, 149, 21);
+}
+
+button.disabled:hover {
+  background-color: white;
+  color: rgb(55, 21, 149);
+  border: 1px solid rgb(55, 21, 149);
+  cursor: pointer;
+}
+
 #message {
-    margin-top: 20px;
-    font-size: 18px;
-    color: green;
+  margin-top: 20px;
+  font-size: 18px;
+  color: green;
 }
 
 .row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.card,
+.long-card {
+  background-color: white;
+  /* border: 1px solid #ccc; */
+  border-radius: 8px;
+  padding: 16px;
+  margin: 8px;
+  padding: 30px;
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.02);
 }
 
 .card {
-    width: 40%;
-    min-width: 40%;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 16px;
-    margin: 8px;
-    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
+  width: 40%;
+  min-width: 40%;
 }
 
 .input-field {
-    width: 100%;
-    padding: 4px;
-    border-radius: 4px;
-    border: 1px solid gray;
+  width: 100%;
+  /* min-width: 30%; */
+  /* width: 200px; */
+  padding: 8px;
+  border-radius: 4px;
+  /* border: 1px solid #ccc; */
+  border: none !important;
+  background-color: rgb(236, 236, 236);
 }
+
+/* .input-field:active {
+    border: 1px solid gray !important;
+} */

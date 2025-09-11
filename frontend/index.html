@@ -12,56 +12,67 @@
     <button id="getMessage">Get Message from Backend</button>
     <p id="message"></p>
 
-    <div class="card">
-      <form>
-        <h2>Log your day</h2>
-        <div class="row">
-          <label for="date">Date</label>
-          <input type="date" id="date" class="input-field" required />
-        </div>
-        <div class="row">
-          <label for="steps">Steps</label>
-          <input
-            type="number"
-            id="steps"
-            class="input-field"
-            placeholder="Steps"
-            min="0"
-            step="1"
-          />
-        </div>
-        <div class="row">
-          <label for="calories">Calories</label>
-          <input
-            type="number"
-            id="calories"
-            class="input-field"
-            placeholder="Calories"
-            min="0"
-            step="1"
-          />
-        </div>
-        <div class="row">
-          <label for="sleep">Sleep (hours)</label>
-          <input
-            type="number"
-            id="sleep"
-            class="input-field"
-            placeholder="Sleep"
-            min="0"
-            max="24"
-            step="0.5"
-          />
-        </div>
-        <div class="row">
-          <label for="mood">Mood</label>
-          <input type="text" id="mood" class="input-field" placeholder="Mood" />
-        </div>
-        <div class="row">
-          <button id="cancelData">Cancel</button>
-          <button id="logData" type="submit">Save</button>
-        </div>
-      </form>
+    <div class="row">
+      <div class="card">
+        <form id="dataForm">
+          <h2>Log your day</h2>
+          <div class="row">
+            <label for="date">Date</label>
+            <input type="date" id="date" class="input-field" required />
+          </div>
+          <div class="row">
+            <label for="steps">Steps</label>
+            <input
+              type="number"
+              id="steps"
+              class="input-field"
+              placeholder="Steps"
+              min="0"
+              step="1"
+            />
+          </div>
+          <div class="row">
+            <label for="calories">Calories</label>
+            <input
+              type="number"
+              id="calories"
+              class="input-field"
+              placeholder="Calories"
+              min="0"
+              step="1"
+            />
+          </div>
+          <div class="row">
+            <label for="sleep">Sleep (hours)</label>
+            <input
+              type="number"
+              id="sleep"
+              class="input-field"
+              placeholder="Sleep"
+              min="0"
+              max="24"
+              step="0.5"
+            />
+          </div>
+          <div class="row">
+            <label for="mood">Mood</label>
+            <input
+              type="text"
+              id="mood"
+              class="input-field"
+              placeholder="Mood"
+            />
+          </div>
+          <div class="row">
+            <button id="cancelData" class="disabled">Cancel</button>
+            <button id="logData" type="submit">Save</button>
+          </div>
+        </form>
+      </div>
+      <div class="card"></div>
+    </div>
+    <div class="long-card">
+      <h2>Weekly progress</h2>
     </div>
   </body>
 </html>
