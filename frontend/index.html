@@ -59,12 +59,24 @@
           </div>
           <div class="row">
             <label for="mood">Mood</label>
-            <input
-              type="text"
-              id="mood"
-              class="input-field"
-              placeholder="Mood"
-            />
+            <div class="mood-slider-container">
+              <input
+                type="range"
+                id="mood"
+                name="mood"
+                min="1"
+                max="5"
+                value="3"
+                step="1"
+              />
+              <div class="mood-labels">
+                <span>😞</span>
+                <span>😐</span>
+                <span>😊</span>
+                <span>😄</span>
+                <span>🤩</span>
+              </div>
+            </div>
           </div>
           <div class="row bottom-row">
             <button id="cancelData" class="disabled">Cancel</button>
@@ -78,7 +90,7 @@
       </div>
     </div>
     <div class="long-card">
-      <h2>Weekly progress</h2>
+      <h2 class="left-align">Weekly progress</h2>
       <p id="total"></p>
       <p id="average"></p>
       <canvas id="chart" width="400" height="200"></canvas>

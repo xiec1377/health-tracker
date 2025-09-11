@@ -72,7 +72,7 @@ $(document).ready(function () {
       steps: parseInt($('#steps').val()) || null,
       calories: parseInt($('#calories').val()) || null,
       sleep: parseFloat($('#sleep').val()) || null,
-      mood: $('#mood').val(),
+      mood: $('#mood').val() || null,
     }
     console.log('Data to be sent:', data)
 
