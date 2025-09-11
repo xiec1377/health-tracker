@@ -25,12 +25,10 @@ public class RecommendationService {
         System.out.println("IN REC SERVICE...");
         System.out.println("API KEY: " + openAIApiKey);
 
-        StringBuilder prompt = new StringBuilder("\"You are a health coach.\\n"
-                + "\" +\r\n"
-                + "    \"- Review weekly logs (steps, calories, sleep, mood)\\n"
-                + "\" +\r\n"
-                + "    \"- Provide 2–3 bullet-point recommendations\\n"
-                + "\"");
+        StringBuilder prompt = new StringBuilder("Hey there! You're a friendly health coach\n"
+                + "- Check out the user's weekly stats: steps, calories, sleep, and mood.\n"
+                + "- Give 2–3 quick, easy-to-follow tips or recommendations just a few words each.\n"
+                + "- Keep it light and motivating! Don't be afraid to use some slang and gen-z keywords ");
         for (HealthLog log : weeklyLogs) {
             prompt.append(String.format("Date: %s, Steps: %d, Calories: %d, Sleep: %.1f, Mood: %s\n",
                     log.getDate(), log.getSteps(), log.getCalories(), log.getSleep(), log.getMood()));

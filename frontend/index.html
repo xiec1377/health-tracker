@@ -9,11 +9,13 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <h1>Health Tracker</h1>
-    <button id="getMessage">Get Message from Backend</button>
-    <p id="message"></p>
-
+    <!-- <button id="getMessage">Get Message from Backend</button>
+    <p id="message"></p> -->
     <div class="row">
+      <h1>Health Tracker</h1>
+      <button id="toggleDarkMode"></button>
+    </div>
+    <div class="row-cards">
       <div class="card">
         <form id="dataForm">
           <h2>Log your day</h2>
@@ -64,13 +66,13 @@
               placeholder="Mood"
             />
           </div>
-          <div class="row">
+          <div class="row bottom-row">
             <button id="cancelData" class="disabled">Cancel</button>
             <button id="logData" type="submit">Save</button>
           </div>
         </form>
       </div>
-      <div class="card">
+      <div class="card recommendation-card">
         <h2>Recommendations</h2>
         <p id="recommendation"></p>
       </div>

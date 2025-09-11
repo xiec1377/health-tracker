@@ -34,6 +34,24 @@ function getTotal(data) {
 }
 
 $(document).ready(function () {
+  $('#toggleDarkMode').click(function () {
+    console.log('Toggling dark mode...')
+
+    const $html = $('html') // target the whole document
+
+    if ($html.hasClass('dark-mode')) {
+      console.log('Removing dark mode class')
+      $(this).text('🌞') // Moon for light mode
+      $html.removeClass('dark-mode')
+    } else {
+      console.log('Adding dark mode class')
+      $(this).text('🌙') // Sun for dark mode
+      $html.addClass('dark-mode')
+    }
+  })
+})
+
+$(document).ready(function () {
   const today = new Date().toISOString().split('T')[0]
   $('#date').val(today)
   $('#getMessage').click(function () {
@@ -88,7 +106,8 @@ $(document).ready(function () {
 
   if (cachedRecommendation) {
     console.log('Loaded recommendation from localStorage')
-    $('#recommendation').text(cachedRecommendation)
+    // $('#recommendation').text(cachedRecommendation)
+    document.getElementById('recommendation').innerHTML = cachedRecommendation
   } else {
     console.log('create another recommendation...')
     $.ajax({
@@ -99,8 +118,15 @@ $(document).ready(function () {
       success: function (response) {
         // alert('Health data saved successfully!')
         console.log('recommendation:', response)
-        $('#recommendation').text(response)
-        localStorage.setItem('recommendation', response)
+        const bullets = response
+          .split('\n')
+          .map((b) => b.trim())
+          .filter((b) => b !== '')
+        const recommendationText = bullets.join('<br><br>')
+        console.log('recommendationText:', recommendationText)
+        // $('#recommendation').text(recommendationText)
+        document.getElementById('recommendation').innerHTML = recommendationText
+        localStorage.setItem('recommendation', recommendationText)
       },
       error: function () {
         alert('Failed to save recommendation.')

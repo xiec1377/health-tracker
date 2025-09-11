@@ -1,13 +1,29 @@
+:root {
+  --bg-color: rgb(236, 236, 236);
+  --bg-color-dark: #130040;
+  --text-color: black;
+  --card-bg: white;
+  --button-bg: #f0f0f0;
+}
+
 body {
   font-family: Arial, sans-serif;
-  padding: 20px;
   background-color: rgb(236, 236, 236);
+  font-size: 14px;
+  padding: 20px 100px;
+}
+
+html.dark-mode body {
+  background-color: var(--bg-color-dark);
+  color: white;
 }
 
 h2 {
   text-align: center;
   font-size: 20px;
   margin: 0;
+  margin-bottom: 20px;
+  font-size: 18px;
 }
 
 button {
@@ -40,6 +56,19 @@ button.disabled:hover {
   cursor: pointer;
 }
 
+button#toggleDarkMode {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  min-width: unset !important;
+  background-color: white;
+}
+
+html.dark-mode button#toggleDarkMode {
+  background-color: #37205e;
+  color: white;
+}
+
 #message {
   margin-top: 20px;
   font-size: 18px;
@@ -51,35 +80,80 @@ button.disabled:hover {
   flex-direction: row;
   justify-content: space-between;
   margin-top: 10px;
+  gap: 10px;
+  align-items: center;
 }
 
-.card,
-.long-card {
-  background-color: white;
-  /* border: 1px solid #ccc; */
-  border-radius: 8px;
-  padding: 16px;
-  margin: 8px;
-  padding: 30px;
-  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.02);
+.row-cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  margin: 0 auto 20px auto;
+  align-items: stretch;
+  gap: 20px;
 }
 
-.card {
-  width: 40%;
-  min-width: 40%;
+.row label {
+  flex: 1;
+  text-align: right;
+  font-weight: bold;
 }
 
-.input-field {
+.row .input-field {
+  background-color: transparent;
+  flex: 0 0 75%;
   width: 100%;
   /* min-width: 30%; */
   /* width: 200px; */
   padding: 8px;
   border-radius: 4px;
-  /* border: 1px solid #ccc; */
-  border: none !important;
-  background-color: rgb(236, 236, 236);
+  border: 1px solid #ccc;
+  /* border: none !important; */
+  /* background-color: rgb(236, 236, 236); */
 }
 
-/* .input-field:active {
-    border: 1px solid gray !important;
-} */
+html.dark-mode .row .input-field {
+  background-color: #3e1f70;
+  color: white;
+  border: 1px solid var(--bg-color-dark);
+}
+
+.row.bottom-row {
+  margin-top: 40px;
+}
+
+.card,
+.long-card {
+  flex: 1;
+  background-color: white;
+  /* border: 1px solid #ccc; */
+  border-radius: 8px;
+  padding: 16px;
+  padding: 30px;
+  height: 100%;
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.02);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px) !important;
+}
+
+.recommendation-card {
+  background-color: #cdade7;
+  color: var(--bg-color-dark);
+}
+
+html.dark-mode .recommendation-card {
+  background-color: #7e4aa8 !important;
+}
+
+html.dark-mode .card,
+html.dark-mode .long-card {
+  background-color: #2c0b52;
+  color: white;
+}
+
+.card {
+  width: 40%;
+  min-width: 40%;
+  padding: 40px;
+}
