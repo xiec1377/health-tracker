@@ -145,6 +145,27 @@ $(document).ready(function () {
           plugins: {
             legend: {
               display: true,
+              labels: {
+                font: {
+                  size: 14,
+                },
+                color: function (legendItem, chart) {
+                  const ds = chart.data.datasets[legendItem.datasetIndex]
+                  return ds.borderColor
+                },
+                generateLabels: function (chart) {
+                  return chart.data.datasets.map((ds, i) => ({
+                    text: ds.label,
+                    // text: `${ds.label} ${ds.hidden ? '' : ''}`, 
+                    fillStyle: `${ds.backgroundColor} ${ds.hidden ? 'red' : ''}`, //ds.backgroundColor, //'transparent',
+                    strokeStyle: 'transparent',
+                    lineWidth: 1,
+                    hidden: ds.hidden,
+                    datasetIndex: i,
+                    hidden: false, // get rid of default strikethrough
+                  }))
+                },
+              },
               onClick: function (e, legendItem, legend) {
                 const index = legendItem.datasetIndex
                 const ci = legend.chart
