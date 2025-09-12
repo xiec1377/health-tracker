@@ -11,6 +11,7 @@ body {
   background-color: rgb(236, 236, 236);
   font-size: 14px;
   padding: 20px 100px;
+  transition: all 0.3s ease;
 }
 
 html.dark-mode body {
@@ -138,7 +139,9 @@ html.dark-mode .row .input-field {
 }
 
 .recommendation-card {
-  background-color: #cdade7;
+  /* background-color: #cdade7; */
+  /* background: linear-gradient(135deg, #cdade7, #7f00ff, #00ffff, #3b82f6); */
+
   color: var(--bg-color-dark);
 }
 
@@ -183,5 +186,3 @@ html.dark-mode .long-card {
 h2.left-align {
   text-align: left;
 }
-
-

@@ -162,6 +162,7 @@ $(document).ready(function () {
       const moodData = response.map((log) => log.mood || 0)
 
       const ctx = document.getElementById('chart').getContext('2d')
+      const moodEmojis = ['', '😞', '😐', '😊', '😄', '🤩']
       const chart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -316,6 +317,14 @@ $(document).ready(function () {
               type: 'linear',
               position: 'left',
               beginAtZero: true,
+              min: 1,
+              max: 5,
+              ticks: {
+                stepSize: 1,
+                callback: function (value) {
+                  return moodEmojis[value] || value
+                },
+              },
               //   title: {
               //     display: true,
               //     text: 'Mood',
