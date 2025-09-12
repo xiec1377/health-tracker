@@ -33,23 +33,62 @@ function getTotal(data) {
   return data.reduce((a, b) => a + b, 0)
 }
 
-$(document).ready(function () {
-  $('#toggleDarkMode').click(function () {
-    console.log('Toggling dark mode...')
+let chart // make chart accessible outside AJAX
+const isDarkMode = document.documentElement.classList.contains('dark-mode')
 
-    const $html = $('html') // target the whole document
-
-    if ($html.hasClass('dark-mode')) {
-      console.log('Removing dark mode class')
-      $(this).text('🌞') // Moon for light mode
-      $html.removeClass('dark-mode')
-    } else {
-      console.log('Adding dark mode class')
-      $(this).text('🌙') // Sun for dark mode
-      $html.addClass('dark-mode')
+function getChartDark(chart) {
+  const isDarkMode = document.documentElement.classList.contains('dark-mode')
+  chart.data.datasets.forEach((ds) => {
+    if (ds.label === 'Steps') {
+      ds.borderColor = isDarkMode ? '#fff' : 'rgba(75, 192, 192, 1)'
+      ds.backgroundColor = isDarkMode
+        ? 'rgba(255,255,255,0.2)'
+        : 'rgba(75,192,192,0.2)'
+    }
+    if (ds.label === 'Mood') {
+      ds.borderColor = isDarkMode ? '#fff' : 'rgba(54, 162, 235, 1)'
     }
   })
+  Object.values(chart.options.scales).forEach((scale) => {
+    scale.ticks.color = isDarkMode ? '#fff' : '#000'
+    if (scale.title) {
+      scale.title.color = isDarkMode ? '#fff' : '#000'
+    }
+    if (scale.grid) {
+      scale.grid.color = isDarkMode
+        ? 'rgba(255,255,255,0.1)'
+        : 'rgba(0,0,0,0.1)'
+    }
+  })
+  chart.update()
+}
+
+// dark mode stuff
+$(document).ready(function () {
+  function toggleDark(isDark) {
+    if (isDark) {
+      $('html').addClass('dark-mode')
+      $('#toggleDarkMode').text('🔆')
+      localStorage.setItem('darkMode', 'true')
+    } else {
+      $('html').removeClass('dark-mode')
+      $('#toggleDarkMode').text('🌙')
+      localStorage.setItem('darkMode', 'false')
+    }
+    if (chart) getChartDark(chart, isDark)
+  }
+  // toggleDark($('html').hasClass('dark-mode'))
+  // toggleDark(true) // initialize with dark mode
+  const storedMode = localStorage.getItem('darkMode')
+  const isDark = storedMode == 'false' ? false : true
+  toggleDark(isDark)
+
+  $('#toggleDarkMode').click(function () {
+    const isDark = !$('html').hasClass('dark-mode')
+    toggleDark(isDark)
+  })
 })
+
 
 $(document).ready(function () {
   const today = new Date().toISOString().split('T')[0]
@@ -163,7 +202,7 @@ $(document).ready(function () {
 
       const ctx = document.getElementById('chart').getContext('2d')
       const moodEmojis = ['', '😞', '😐', '😊', '😄', '🤩']
-      const chart = new Chart(ctx, {
+      chart = new Chart(ctx, {
         type: 'line',
         data: {
           labels: labels,
@@ -201,7 +240,7 @@ $(document).ready(function () {
             {
               label: 'Mood',
               data: moodData,
-              borderColor: 'rgba(54, 162, 235, 1)',
+              borderColor: isDarkMode ? '#fff' : 'rgba(75, 192, 192, 1)',
               backgroundColor: 'rgba(54, 162, 235, 0.2)',
               fill: true,
               tension: 0.3,
@@ -281,20 +320,14 @@ $(document).ready(function () {
               display: true,
               position: 'left',
               beginAtZero: true,
-              //   title: {
-              //     display: true,
-              //     text: 'Steps',
-              //   },
+              grid: {
+                drawOnChartArea: false,
+              },
             },
             yCalories: {
               display: false,
               type: 'linear',
               position: 'left',
-              beginAtZero: true,
-              //   title: {
-              //     display: true,
-              //     text: 'Calories',
-              //   },
               grid: {
                 drawOnChartArea: false,
               },
@@ -304,10 +337,6 @@ $(document).ready(function () {
               type: 'linear',
               position: 'left',
               beginAtZero: true,
-              //   title: {
-              //     display: true,
-              //     text: 'Sleep (hours)',
-              //   },
               grid: {
                 drawOnChartArea: false,
               },
@@ -325,10 +354,6 @@ $(document).ready(function () {
                   return moodEmojis[value] || value
                 },
               },
-              //   title: {
-              //     display: true,
-              //     text: 'Mood',
-              //   },
               grid: {
                 drawOnChartArea: false,
               },
