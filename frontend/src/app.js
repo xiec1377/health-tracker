@@ -89,7 +89,6 @@ $(document).ready(function () {
   })
 })
 
-
 $(document).ready(function () {
   const today = new Date().toISOString().split('T')[0]
   $('#date').val(today)
@@ -132,8 +131,9 @@ $(document).ready(function () {
     })
   })
 
-  $('#cancelData').click(function () {
+  $('#cancelData').click(function (e) {
     console.log('cancelling data entry...')
+    e.preventDefault()
 
     $('#dataForm')[0].reset()
     console.log('today:', today)
@@ -379,3 +379,18 @@ $(function () {
   const today = new Date().toISOString().split('T')[0]
   $('#date').val(today)
 })
+
+// login/signup page
+$(document).ready(function () {
+  $('#signupButton').click(function (e) {
+    e.preventDefault()
+    window.location.href = 'index.html'
+  })
+  $('#loginButton').click(function (e) {
+    e.preventDefault()
+    window.location.href = 'index.html'
+  })
+})
+
+
+
