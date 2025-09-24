@@ -13,10 +13,10 @@ function LogCard() {
   });
   const handleLogChange = (e) => {
     const { name, value } = e.target;
-    console.log("filed:", name, "value:", value);
     setLogData((prev) => ({ ...prev, [name]: value }));
   };
-  const handleSubmitLog = async () => {
+  const handleSubmitLog = async (e: React.FormEvent) => {
+    e.preventDefault();
     console.log("SUBMITTING LOG....");
     try {
       const response = await postLog(logData);

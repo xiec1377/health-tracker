@@ -11,7 +11,7 @@ import {
   Legend,
 } from "chart.js";
 import { getChart } from "../api/chart"; 
-import { formatDateToMonthDay} from "../utils/dateUtils"; 
+import { formatDateToMonthDay, generateDateRange} from "../utils/dateUtils"; 
 
 
 ChartJS.register(
@@ -43,16 +43,20 @@ const [chartData, setChartData] = useState<ChartData<"line", number[], string> |
   useEffect(() => {
     getChart(today).then((response) => {
       console.log("weekly response in chart:", response);
-      response.sort(
-        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-      );
-      console.log("sorted response:", response);
-      const labels = response.map((log) => formatDateToMonthDay(log.date));
+      // response.sort(
+      //   (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+      // );
+      // console.log("sorted response:", response);
+      const labels = generateDateRange(response[0].date, response[response.length - 1].date)
+      // const labels = response.map((log) => formatDateToMonthDay(log.date));
       console.log("labels:", labels);
-      const stepsData = response.map((log: Log) => log.steps || 0);
-      const caloriesData = response.map((log: Log) => log.calories || 0);
-      const sleepData = response.map((log: Log) => log.sleep || 0);
-      const moodData = response.map((log: Log) => log.mood || 0);
+      const logMap = new Map(response.map(log => [formatDateToMonthDay(log.date), log]));
+      console.log("logmap:", logMap)
+
+      const stepsData = labels.map(date => logMap.get(date)?.steps || 0);
+      const caloriesData = labels.map(date => logMap.get(date)?.calories || 0);
+      const sleepData = labels.map(date => logMap.get(date)?.sleep || 0);
+      const moodData = labels.map(date => logMap.get(date)?.mood || 0);
 
       setChartData({
         labels,

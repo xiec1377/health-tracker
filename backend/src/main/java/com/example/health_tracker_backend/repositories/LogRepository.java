@@ -14,6 +14,6 @@ public interface LogRepository extends JpaRepository<HealthLog, Long> {
     @Query("SELECT h FROM HealthLog h WHERE h.date = :date")
     HealthLog findByDate(LocalDate date);
 
-    @Query("SELECT h FROM HealthLog h WHERE h.date >= :date ORDER BY h.date DESC")
+    @Query("SELECT h FROM HealthLog h WHERE h.date >= :date ORDER BY h.date ASC")
     List<HealthLog> findLogsFromDate(LocalDate date);
 }

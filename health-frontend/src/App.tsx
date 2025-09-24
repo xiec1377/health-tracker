@@ -7,16 +7,16 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 
 function App() {
-  useEffect(() => {
-    fetch("http://localhost:8080/api/hello")
-      .then((response) => response.text())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  });
+  // useEffect(() => {
+  //   fetch("http://localhost:8080/api/hello")
+  //     .then((response) => response.text())
+  //     .then((data) => {
+  //       console.log(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching data:", error);
+  //     });
+  // });
 
   return (
     <Router>

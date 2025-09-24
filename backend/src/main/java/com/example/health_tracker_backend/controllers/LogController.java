@@ -24,13 +24,13 @@ public class LogController {
 
     @GetMapping("/api/health/log")
     public ResponseEntity<HealthLog> getLog(@RequestParam String date) {
-    HealthLog log = logService.getLog(date);
-    if (log != null) {
-        return ResponseEntity.ok(log); // return 200 with log
-    } else {
-        return ResponseEntity.notFound().build(); // return 404
+        HealthLog log = logService.getLog(date);
+        if (log != null) {
+            return ResponseEntity.ok(log); // return 200 with log
+        } else {
+            return ResponseEntity.notFound().build(); // return 404
+        }
     }
-}
 
     @PostMapping("/api/health/log")
     public HealthLog saveLog(@RequestBody HealthLog log) {

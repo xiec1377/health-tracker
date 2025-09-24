@@ -1,9 +1,8 @@
-import React, {createContext, useState, useEffect} from "react"; 
+import React, { createContext, useState, useEffect } from "react";
 
 interface DarkModeProviderProps {
   children: any;
 }
-
 
 interface DarkModeContextType {
   darkMode: boolean;
@@ -12,21 +11,16 @@ interface DarkModeContextType {
 
 const DarkModeContext = createContext<DarkModeContextType>({
   darkMode: false,
-  toggleDarkMode: () => {}, 
+  toggleDarkMode: () => {},
 });
 
-
-
 function DarkModeProvider(props: DarkModeProviderProps) {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = localStorage.getItem("darkMode");
+    return saved ? saved === "true" : false;
+  });
 
   useEffect(() => {
-    const savedMode = localStorage.getItem("darkMode");
-    console.log("saved mode:" , savedMode)
-    if (savedMode) setDarkMode(savedMode === "true");
-  }, []);
-
-   useEffect(() => {
     const html = document.documentElement;
     if (darkMode) {
       html.classList.add("dark");
@@ -40,16 +34,14 @@ function DarkModeProvider(props: DarkModeProviderProps) {
   const toggleDarkMode = () => {
     console.log("Toggling dark mode");
     setDarkMode(!darkMode);
-  }
+  };
   return (
     <DarkModeContext.Provider value={{ darkMode, toggleDarkMode }}>
       {props.children}
     </DarkModeContext.Provider>
   );
-} 
+}
 export { DarkModeContext, DarkModeProvider };
-
-
 
 // import React, { createContext, useState, ReactNode } from "react";
 

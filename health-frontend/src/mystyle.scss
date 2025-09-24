@@ -24,7 +24,7 @@ body {
   font-family: Arial, sans-serif;
   background-color: rgb(233, 231, 240);
   font-size: 14px;
-  padding: 20px 100px;
+  padding: 20px 20vw;
   transition: all 0.3s ease;
   color: $black;
 
@@ -143,8 +143,10 @@ html.dark .row .input-field {
 }
 
 .card,
-.long-card {
-  flex: 1;
+.recommendation-card {
+  padding: 28px;
+  height: 100%;
+  text-align: left;
   background: linear-gradient(135deg, white, rgb(233, 232, 240));
   /* border: 1px solid #ccc; */
   border-radius: 8px;
@@ -161,11 +163,6 @@ html.dark .row .input-field {
   }
 }
 
-// .card {
-//   width: 40%;
-//   min-width: 40%;
-//   padding: 40px;
-// }
 
 .mood-slider-container {
   flex: 0 0 50%;
@@ -194,11 +191,7 @@ h2.left-align {
 }
 
 .recommendation-card {
-  position: relative;
-  border-radius: 12px;
-  padding: 24px;
   color: white !important;
-  overflow: hidden;
   min-height: 180px;
   color: $purple-800;
   /* background-color: #3e1f70; */

@@ -37,6 +37,7 @@ public class LogService {
     public List<HealthLog> getWeeklyLogs() {
         LocalDate today = LocalDate.now();
         LocalDate weekAgo = today.minusDays(7);
+        System.out.println("weekago" + weekAgo);
         return logRepository.findLogsFromDate(weekAgo);
     }
 }
